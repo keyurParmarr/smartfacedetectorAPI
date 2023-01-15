@@ -1,15 +1,20 @@
 const { createUser, loginUser } = require("../firebase.utils");
+const { createSession } = require("../sessions");
 
 const logincontroller = async (req, res, db) => {
   const { email, password } = req.body;
   const isVerified = await loginUser(email, password);
+  console.log(isVerified);
   if (isVerified) {
     const user = await db
       .select("*")
       .from("users")
       .where("email", "=", email)
       .returning("*");
-    res.json({ ...user[0], success: true });
+    console.log(user);
+    const session = await createSession(user[0]);
+    console.log(session);
+    res.json({ ...session, success: true });
   } else {
     res.json({ success: false });
   }
@@ -17,6 +22,7 @@ const logincontroller = async (req, res, db) => {
 
 const signupcontroller = async (req, res, db) => {
   const { username, email, password } = req.body;
+  console.log(username, email, password);
   const isVerified = await createUser(email, password);
   if (isVerified) {
     const user = await db
@@ -28,7 +34,8 @@ const signupcontroller = async (req, res, db) => {
       })
       .into("users")
       .returning("*");
-    res.json({ ...user[0], success: true });
+    const session = await createSession(user[0]);
+    res.json({ ...session, success: true });
   } else {
     res.json({ success: false });
   }

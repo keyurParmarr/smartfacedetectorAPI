@@ -8,6 +8,9 @@ const {
 } = require("./CONTROLLER/authenticationcontroller");
 const imagecontroller = require("./CONTROLLER/imageController");
 const historycontroller = require("./CONTROLLER/historyController");
+const { getUserfromToken } = require("./sessions");
+const modifyUsersController = require("./CONTROLLER/modifyUsersController");
+const blockUsersController = require("./CONTROLLER/blockUsersController");
 app.use(cors());
 app.use(express.json());
 const db = knex({
@@ -27,5 +30,8 @@ app.get("/", (req, res) => {
 app.post("/login", (req, res) => logincontroller(req, res, db));
 app.post("/signup", (req, res) => signupcontroller(req, res, db));
 app.post("/imagebox", (req, res) => imagecontroller(req, res, db));
+app.post("/tokenlogin", (req, res) => getUserfromToken(req, res, db));
 app.get("/history/:userid", (req, res) => historycontroller(req, res, db));
+app.get("/modifyusers", (req, res) => modifyUsersController(req, res, db));
+app.get("/blockusers/:id", (req, res) => blockUsersController(req, res, db));
 module.exports = app;
