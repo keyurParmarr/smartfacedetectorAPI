@@ -64,7 +64,7 @@ const signupcontroller = async (req, res, db) => {
     const session = await createSession(user[0]);
     res.json({ ...session, success: true });
   } else {
-    res.json({ success: false });
+    res.json({ success: false, message: "USER ALREADY EXISTS" });
   }
 };
 module.exports = { logincontroller, signupcontroller, adminloginController };

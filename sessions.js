@@ -27,4 +27,9 @@ const getUserfromToken = async (req, res, db) => {
     res.json({ ...data[0], success: true });
   }
 };
-module.exports = { redisStart, createSession, getUserfromToken };
+
+const deleteSession = async (req, res, db) => {
+  const token = req.headers.authorization;
+  await redisClient.del(token);
+};
+module.exports = { redisStart, createSession, getUserfromToken, deleteSession };

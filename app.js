@@ -13,6 +13,7 @@ const { getUserfromToken } = require("./sessions");
 const modifyUsersController = require("./CONTROLLER/modifyUsersController");
 const blockUsersController = require("./CONTROLLER/blockUsersController");
 const removeUsers = require("./CONTROLLER/removeController");
+const signoutUserController = require("./CONTROLLER/signoutUserController");
 app.use(cors());
 app.use(express.json());
 const db = knex({
@@ -38,4 +39,5 @@ app.get("/history/:userid", (req, res) => historycontroller(req, res, db));
 app.get("/modifyusers", (req, res) => modifyUsersController(req, res, db));
 app.post("/blockusers", (req, res) => blockUsersController(req, res, db));
 app.get("/removeusers/:id", (req, res) => removeUsers(req, res, db));
+app.get("/signout/:id", (req, res) => signoutUserController(req, res, db));
 module.exports = app;
