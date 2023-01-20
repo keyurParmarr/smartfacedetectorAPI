@@ -7,11 +7,7 @@ const imagecontroller = async (req, res, db) => {
   try {
     const { imgurl, id } = req.body;
     console.log(imgurl, id, "8");
-    const data = await faceApp.models.predict(
-      Clarifai.FACE_DETECT_MODEL,
-      imgurl
-    );
-    console.log(data, "13");
+    const data = await faceApp.models.predict(Clarifai.CELEBRITY_MODEL, imgurl);
     if (data && data.outputs[0].data.regions) {
       await db.insert({ history: imgurl, id }).into("history");
       const userData = await db("users")
