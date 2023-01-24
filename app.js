@@ -15,6 +15,11 @@ const blockUsersController = require("./CONTROLLER/blockUsersController");
 const removeUsers = require("./CONTROLLER/removeController");
 const signoutUserController = require("./CONTROLLER/signoutUserController");
 const editNameController = require("./CONTROLLER/editNameController");
+const {
+  uploadimageController,
+  upload,
+} = require("./CONTROLLER/uploadimageController");
+
 app.use(cors());
 app.use(express.json());
 const db = knex({
@@ -42,4 +47,7 @@ app.post("/blockusers", (req, res) => blockUsersController(req, res, db));
 app.get("/removeusers/:id", (req, res) => removeUsers(req, res, db));
 app.get("/signout/:id", (req, res) => signoutUserController(req, res, db));
 app.post("/editname", (req, res) => editNameController(req, res, db));
+app.post("/uploadimage/:id", upload.single("image"), (req, res) =>
+  uploadimageController(req, res, db)
+);
 module.exports = app;

@@ -9,6 +9,7 @@ const redisStart = async () => {
     })
     .catch(() => {
       console.log("Redis connection error");
+      process.exit(0);
     });
 };
 const createSession = async (user) => {
@@ -23,7 +24,6 @@ const getUserfromToken = async (req, res, db) => {
   const id = await redisClient.get(authorization);
   if (id) {
     const data = await db("users").where("id", "=", id);
-    console.log(data);
     res.json({ ...data[0], success: true });
   }
 };
