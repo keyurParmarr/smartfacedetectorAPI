@@ -1,6 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 const imagecontroller = require("./imageController");
+const fs = require("fs");
 const cloudinary = require("../CONFIG/cloudinary.config.js");
 const file = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -12,15 +13,20 @@ const file = multer.diskStorage({
   },
 });
 const upload = multer({ storage: file });
-const uploadimageController = (req, res, db) => {
-  cloudinary.uploader.upload(
+const uploadimageController = async (req, res, db) => {
+  const resp = await cloudinary.uploader.upload(
+    path.join(__dirname, "..", "UTILS", "IMAGES", `image${req.params.id}.jpg`)
+  );
+  req.body.imgurl = resp.url;
+  req.body.id = req.params.id;
+  await imagecontroller(req, res, db);
+  fs.unlink(
     path.join(__dirname, "..", "UTILS", "IMAGES", `image${req.params.id}.jpg`),
-    (err, resp) => {
-      req.body.imgurl = resp.url;
-      req.body.id = req.params.id;
-      imagecontroller(req, res, db);
+    (err) => {
+      if (err) console.log(err);
     }
   );
+  const data = await cloudinary.uploader.destroy(resp.public_id);
 };
 
 module.exports = { uploadimageController, upload };

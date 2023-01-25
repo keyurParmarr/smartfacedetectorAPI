@@ -10,7 +10,6 @@ const imagecontroller = async (req, res, db) => {
     const data = await faceApp.models.predict(Clarifai.CELEBRITY_MODEL, imgurl);
 
     if (data && data.outputs[0].data.regions) {
-      console.log(data.outputs[0].data.regions);
       await db.insert({ history: imgurl, id }).into("history");
       const userData = await db("users")
         .increment("entries", 1)
