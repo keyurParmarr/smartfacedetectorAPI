@@ -10,7 +10,6 @@ const adminloginController = async (req, res, db) => {
       .from("users")
       .where("email", "=", email)
       .returning("*");
-    console.log(user);
     if (user[0].isadmin) {
       const session = await createSession(user[0]);
       res.json({ ...session, success: true });
@@ -32,7 +31,6 @@ const logincontroller = async (req, res, db) => {
       .from("users")
       .where("email", "=", email)
       .returning("*");
-    console.log(user);
     if (user[0].isblocked) {
       return res.json({
         message: "YOU ARE BLOCKED FROM THIS WEBSITE",
@@ -40,7 +38,6 @@ const logincontroller = async (req, res, db) => {
       });
     }
     const session = await createSession(user[0]);
-    console.log(session);
     res.json({ ...session, success: true });
   } else {
     res.json({ message: "USER DOESN'T EXIST", success: false });
@@ -49,7 +46,6 @@ const logincontroller = async (req, res, db) => {
 
 const signupcontroller = async (req, res, db) => {
   const { username, email, password } = req.body;
-  console.log(username, email, password);
   const isVerified = await createUser(email, password);
   if (isVerified) {
     const user = await db

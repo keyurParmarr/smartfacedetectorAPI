@@ -8,7 +8,6 @@ const file = multer.diskStorage({
     cb(null, path.join(__dirname, "..", "UTILS", "IMAGES"));
   },
   filename: (req, file, cb) => {
-    console.log(req.params);
     cb(null, `image${req.params.id}.jpg`);
   },
 });
@@ -19,7 +18,7 @@ const uploadimageController = async (req, res, db) => {
   );
   req.body.imgurl = resp.url;
   req.body.id = req.params.id;
-  await imagecontroller(req, res, db);
+  await imagecontroller(req, res, db, false);
   fs.unlink(
     path.join(__dirname, "..", "UTILS", "IMAGES", `image${req.params.id}.jpg`),
     (err) => {
