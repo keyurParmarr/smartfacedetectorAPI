@@ -3,6 +3,7 @@ const {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } = require("firebase/auth");
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
@@ -45,8 +46,19 @@ const loginUser = async (email, password) => {
     return false;
   }
 };
+const forgotPassword = async (email) => {
+  try {
+    const resp = await sendPasswordResetEmail(auth, email);
+    if (resp) {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 module.exports = {
   auth,
   createUser,
   loginUser,
+  forgotPassword,
 };

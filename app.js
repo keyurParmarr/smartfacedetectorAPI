@@ -20,6 +20,7 @@ const {
   upload,
 } = require("./CONTROLLER/uploadimageController");
 const profileimageController = require("./CONTROLLER/profileimageController");
+const forgotPasswordController = require("./CONTROLLER/forgotPasswordController");
 
 app.use(cors());
 app.use(express.json());
@@ -48,6 +49,9 @@ app.post("/blockusers", (req, res) => blockUsersController(req, res, db));
 app.get("/removeusers/:id", (req, res) => removeUsers(req, res, db));
 app.post("/signout", (req, res) => signoutUserController(req, res, db));
 app.post("/editname", (req, res) => editNameController(req, res, db));
+app.post("/forgotpassword", (req, res) =>
+  forgotPasswordController(req, res, db)
+);
 app.post("/profilepic/:id", (req, res) => profileimageController(req, res, db));
 app.post("/uploadimage/:id", upload.single("image"), (req, res) =>
   uploadimageController(req, res, db)

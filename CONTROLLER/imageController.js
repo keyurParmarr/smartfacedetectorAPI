@@ -14,8 +14,8 @@ const imagecontroller = async (req, res, db, flag) => {
         .where("id", "=", id)
         .returning("*");
       res.json({ data, userData });
-      if (flag) await db.insert({ history: imgurl, id }).into("history");
-
+      const newimgurl = id + imgurl;
+      if (flag) await db.insert({ history: newimgurl, id }).into("history");
       return;
     }
     if (!data.outputs[0].data.regions) {
