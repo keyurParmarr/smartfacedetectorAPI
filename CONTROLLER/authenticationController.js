@@ -3,6 +3,7 @@ const { createSession } = require("../sessions");
 
 const adminloginController = async (req, res, db) => {
   const { email, password } = req.body;
+  console.log(email, password);
   const isVerified = await loginUser(email, password);
   if (isVerified) {
     const user = await db

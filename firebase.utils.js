@@ -5,6 +5,7 @@ const {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } = require("firebase/auth");
+const nodemailer = require("nodemailer");
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,11 +24,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth();
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "parmarkeyur1104@gmail.com",
+    pass: "pdrkbvhhrlfcawoh",
+  },
+});
 
 const createUser = async (email, password) => {
   try {
     const resp = await createUserWithEmailAndPassword(auth, email, password);
     if (resp) {
+      const mailOptions = {
+        from: "parmarkeyur1104@gmail.com",
+        to: `${email}`,
+        subject: "WELCOME TO SMART FACE DETECTOR",
+        text: "WC",
+      };
+      transporter.sendMail(mailOptions, (err, info) => {
+        console.log(err, "||", info);
+      });
       return true;
     }
   } catch (error) {

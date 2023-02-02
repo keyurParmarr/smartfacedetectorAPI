@@ -33,11 +33,6 @@ const db = knex({
     database: "postgres",
   },
 });
-
-app.get("/", (req, res) => {
-  res.send("<h1>hello</h1>");
-});
-
 app.post("/login", (req, res) => logincontroller(req, res, db));
 app.post("/signup", (req, res) => signupcontroller(req, res, db));
 app.post("/imagebox", (req, res) => imagecontroller(req, res, db, true));
