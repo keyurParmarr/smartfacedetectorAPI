@@ -7,7 +7,7 @@ const {
   logincontroller,
   signupcontroller,
   adminloginController,
-} = require("./CONTROLLER/authenticationcontroller");
+} = require("./CONTROLLER/authenticationController");
 const imagecontroller = require("./CONTROLLER/imageController");
 const historycontroller = require("./CONTROLLER/historyController");
 const modifyUsersController = require("./CONTROLLER/modifyUsersController");
@@ -26,9 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "UTILS", "TEMPLATE"));
-app.get("/", (req, res) => {
-  res.render("email.hbs");
-});
+
 const db = knex({
   client: "pg",
   connection: {
@@ -38,9 +36,7 @@ const db = knex({
     database: "smartbrain",
   },
 });
-app.get("/", (req, res) => {
-  res.json("working");
-});
+
 app.post("/login", (req, res) => logincontroller(req, res, db));
 app.post("/signup", (req, res) => signupcontroller(req, res, db));
 app.post("/imagebox", (req, res) => imagecontroller(req, res, db, true));
