@@ -1,0 +1,65 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+      text-align: center;
+      background-color: #4f70fd;
+    }
+    .footer {
+      text-align: center;
+      font-size: larger;
+      font-weight: 800;
+      background-color:#628ca5;
+    }
+    .image {
+      display: flex;
+      justify-content: center;
+    }
+    .info {
+      font-size: larger;
+      text-align: center;
+    }
+    h3 {
+      margin: 11px;
+    }
+    p {
+      margin: 11px;
+    }
+  </style>
+  <body>
+    <div class="main">
+      <div class="image">
+        <img src="https://res.cloudinary.com/dsdzlqpdx/image/upload/v1675510253/facelogo_irhg5s.jpg" alt="img" width="250" height="230" />
+      </div>
+      <div class="info">
+        <h2> <i>
+          WELCOME TO SMART FACE DETECTOR</h2>
+        </i>
+        <h3>
+          Hey <strong> {{username}}</strong> we're glad you're here! Thanks for Signing in our
+          WebApp!
+        </h3>
+        <h3>
+          Explore the platform that gives you freedom to detect &amp; get info of
+          every faces from image url and also from your device.
+        </h3>
+        <h3>Your User Account has been created</h3>
+        <h3>YOUR ACCOUNT EMAIL:</h3>
+        <h3>Email: {{email}}</h3>
+      </div>
+    </div>
+    <footer class="footer">
+      <p>Thanks for Joining SMART FACE DETECTOR</p>
+      <p>~THE SMART FACE DETECTOR TEAM.</p>
+    </footer>
+  </body>
+</html>

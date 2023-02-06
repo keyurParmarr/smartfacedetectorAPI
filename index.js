@@ -1,6 +1,6 @@
 const http = require("http");
 const app = require("./app");
-const { redisStart } = require("./sessions");
+const { redisStart } = require("./UTILS/sessions");
 const server = http.createServer(app);
 
 const startServer = async () => {

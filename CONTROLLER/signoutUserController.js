@@ -1,4 +1,4 @@
-const { deleteSession } = require("../sessions");
+const { deleteSession } = require("../UTILS/sessions");
 
 const signoutUserController = async (req, res, db) => {
   deleteSession(req, res, db);

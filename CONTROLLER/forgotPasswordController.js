@@ -1,10 +1,13 @@
-const { forgotPassword } = require("../firebase.utils");
+const { forgotPassword } = require("../UTILS/firebase.utils");
 
 const forgotPasswordController = async (req, res, db) => {
-  await forgotPassword(req.body.email);
-
-  res.json({
-    msg: "PASSWORD RESET LINK HAS BEEN SUCCESSFULLY SENT TO YOUR MAIL",
-  });
+  try {
+    await forgotPassword(req.body.email);
+    res.json({
+      msg: "PASSWORD RESET LINK HAS BEEN SUCCESSFULLY SENT TO YOUR MAIL",
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 module.exports = forgotPasswordController;
