@@ -50,7 +50,7 @@ const logincontroller = async (req, res, db) => {
     }
   } catch (error) {
     res.json({ message: "SOMETHING WENT WRONG", success: false });
-    console.log(error.message);
+    console.log(error);
   }
 };
 

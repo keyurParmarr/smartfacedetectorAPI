@@ -21,6 +21,7 @@ const {
 } = require("./CONTROLLER/uploadimageController");
 const forgotPasswordController = require("./CONTROLLER/forgotPasswordController");
 const { getUserfromToken } = require("./UTILS/sessions");
+const deleteHistory = require("./CONTROLLER/deletehistoryController");
 
 app.use(cors());
 app.use(express.json());
@@ -32,8 +33,8 @@ const db = knex({
   connection: {
     host: "127.0.0.1",
     user: "postgres",
-    password: "postgres",
-    database: "smartbrain",
+    password: "1674",
+    database: "postgres",
   },
 });
 
@@ -54,4 +55,5 @@ app.post("/forgotpassword", (req, res) =>
 app.post("/uploadimage/:id", upload.single("image"), (req, res) =>
   uploadimageController(req, res, db)
 );
+app.post("/deletehistory", (req, res) => deleteHistory(req, res, db));
 module.exports = app;

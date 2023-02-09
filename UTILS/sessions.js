@@ -39,6 +39,8 @@ const getUserfromToken = async (req, res, db) => {
     if (id) {
       const data = await db("users").where("id", "=", id);
       res.json({ ...data[0], success: true });
+    } else {
+      res.json({ success: false });
     }
   } catch (error) {
     console.log(error.message);
