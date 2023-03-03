@@ -22,7 +22,7 @@ const imagecontroller = async (req, res, db, flag) => {
       return;
     }
     if (!data.outputs[0].data.regions) {
-      return res.json({ message: "This image does not contain any faces" });
+      return res.json({ message: "NO FACES DETECTED" });
     }
   } catch (error) {
     console.log(error.message);

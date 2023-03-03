@@ -22,6 +22,8 @@ const {
 const forgotPasswordController = require("./CONTROLLER/forgotPasswordController");
 const { getUserfromToken } = require("./UTILS/sessions");
 const deleteHistory = require("./CONTROLLER/deletehistoryController");
+const deleteallHistory = require("./CONTROLLER/deleteallHistory");
+const deletespecific = require("./CONTROLLER/deleteSpecific");
 
 app.use(cors());
 app.use(express.json());
@@ -49,6 +51,7 @@ app.post("/blockusers", (req, res) => blockUsersController(req, res, db));
 app.get("/removeusers/:id", (req, res) => removeUsers(req, res, db));
 app.post("/signout", (req, res) => signoutUserController(req, res, db));
 app.post("/editname", (req, res) => editNameController(req, res, db));
+app.post("/deleteallHistory", (req, res) => deleteallHistory(req, res, db));
 app.post("/forgotpassword", (req, res) =>
   forgotPasswordController(req, res, db)
 );
@@ -56,4 +59,5 @@ app.post("/uploadimage/:id", upload.single("image"), (req, res) =>
   uploadimageController(req, res, db)
 );
 app.post("/deletehistory", (req, res) => deleteHistory(req, res, db));
+app.post("/deletespecific", (req, res) => deletespecific(req, res, db));
 module.exports = app;
