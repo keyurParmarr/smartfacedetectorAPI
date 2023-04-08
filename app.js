@@ -18,18 +18,19 @@ const editNameController = require("./CONTROLLER/editNameController");
 const {
   uploadimageController,
   upload,
+  upload2,
 } = require("./CONTROLLER/uploadimageController");
 const forgotPasswordController = require("./CONTROLLER/forgotPasswordController");
 const { getUserfromToken } = require("./UTILS/sessions");
 const deleteHistory = require("./CONTROLLER/deletehistoryController");
 const deleteallHistory = require("./CONTROLLER/deleteallHistory");
 const deletespecific = require("./CONTROLLER/deleteSpecific");
+const uploadprofileimgController = require("./CONTROLLER/uploadprofileimgController");
 
 app.use(cors());
 app.use(express.json());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "UTILS", "TEMPLATE"));
-
 const db = knex({
   client: "pg",
   connection: {
@@ -39,7 +40,7 @@ const db = knex({
     database: "postgres",
   },
 });
-
+app.use(express.static(path.join(__dirname, "PUBLIC")));
 app.post("/login", (req, res) => logincontroller(req, res, db));
 app.post("/signup", (req, res) => signupcontroller(req, res, db));
 app.post("/imagebox", (req, res) => imagecontroller(req, res, db, true));
@@ -50,8 +51,11 @@ app.get("/modifyusers", (req, res) => modifyUsersController(req, res, db));
 app.post("/blockusers", (req, res) => blockUsersController(req, res, db));
 app.get("/removeusers/:id", (req, res) => removeUsers(req, res, db));
 app.post("/signout", (req, res) => signoutUserController(req, res, db));
-app.post("/editname", (req, res) => editNameController(req, res, db));
+app.post("/editdetails", (req, res) => editNameController(req, res, db));
 app.post("/deleteallHistory", (req, res) => deleteallHistory(req, res, db));
+app.post("/uploadprofileimg/:id", upload2.single("profilepic"), (req, res) =>
+  uploadprofileimgController(req, res, db)
+);
 app.post("/forgotpassword", (req, res) =>
   forgotPasswordController(req, res, db)
 );

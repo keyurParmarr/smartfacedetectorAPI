@@ -13,6 +13,17 @@ const file = multer.diskStorage({
   },
 });
 const upload = multer({ storage: file });
+
+const file2 = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "..", "PUBLIC"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, `profilepic${req.params.id}.jpg`);
+  },
+});
+const upload2 = multer({ storage: file2 });
+
 const uploadimageController = async (req, res, db) => {
   try {
     const token = req.headers.authorization;
@@ -42,4 +53,4 @@ const uploadimageController = async (req, res, db) => {
   }
 };
 
-module.exports = { uploadimageController, upload };
+module.exports = { uploadimageController, upload, upload2 };
